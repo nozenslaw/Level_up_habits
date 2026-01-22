@@ -15,10 +15,10 @@ export const XPBar = ({ currentXP, xpForNextLevel, level, className }) => {
       </div>
       <div className="h-3 rounded-full bg-secondary/20 overflow-hidden border border-white/5">
         <div
-          className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-500 ease-out"
+          className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full transition-all duration-500 ease-out"
           style={{ 
             width: `${percentage}%`,
-            boxShadow: '0 0 15px rgba(0,240,255,0.5)'
+            boxShadow: '0 0 12px rgba(99, 102, 241, 0.4)'
           }}
           data-testid="xp-progress"
         />

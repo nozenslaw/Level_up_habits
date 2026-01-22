@@ -55,18 +55,18 @@ export const RadarChart = ({ stats, className }) => {
           <Radar
             name="Stats"
             dataKey="value"
-            stroke="#00F0FF"
-            fill="#00F0FF"
+            stroke="rgb(99, 102, 241)"
+            fill="rgb(99, 102, 241)"
             fillOpacity={0.3}
             strokeWidth={2}
             dot={{
               r: 4,
-              fill: '#00F0FF',
+              fill: 'rgb(99, 102, 241)',
               strokeWidth: 2,
-              stroke: isDark ? '#050505' : '#FAFAFA'
+              stroke: isDark ? 'rgb(15, 23, 42)' : 'rgb(248, 250, 252)'
             }}
             style={{
-              filter: 'drop-shadow(0 0 8px rgba(0,240,255,0.5))'
+              filter: 'drop-shadow(0 0 6px rgba(99, 102, 241, 0.4))'
             }}
           />
           <Tooltip content={<CustomTooltip />} />
