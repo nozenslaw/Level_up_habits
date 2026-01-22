@@ -27,8 +27,8 @@ import {
 import { toast } from 'sonner';
 
 const STAT_COLORS = [
-  '#FF0055', '#FFAA00', '#00F0FF', '#BD00FF', '#39FF14', '#FFFFFF',
-  '#FF6B6B', '#4ECDC4', '#FFE66D', '#95E1D3', '#F38181', '#AA96DA'
+  '#ef4444', '#f59e0b', '#6366f1', '#a855f7', '#22c55e', '#64748b',
+  '#ec4899', '#14b8a6', '#eab308', '#06b6d4', '#f43f5e', '#8b5cf6'
 ];
 
 export default function Settings() {

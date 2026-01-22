@@ -28,12 +28,12 @@ export const calculateLevelFromTotalXP = (totalXP) => {
 };
 
 const DEFAULT_STATS = [
-  { id: 'strength', name: 'Force', color: '#FF0055', xp: 0 },
-  { id: 'endurance', name: 'Endurance', color: '#FFAA00', xp: 0 },
-  { id: 'intelligence', name: 'Intelligence', color: '#00F0FF', xp: 0 },
-  { id: 'charisma', name: 'Charisme', color: '#BD00FF', xp: 0 },
-  { id: 'agility', name: 'Agilité', color: '#39FF14', xp: 0 },
-  { id: 'wisdom', name: 'Sagesse', color: '#FFFFFF', xp: 0 }
+  { id: 'strength', name: 'Force', color: '#ef4444', xp: 0 },
+  { id: 'endurance', name: 'Endurance', color: '#f59e0b', xp: 0 },
+  { id: 'intelligence', name: 'Intelligence', color: '#6366f1', xp: 0 },
+  { id: 'charisma', name: 'Charisme', color: '#a855f7', xp: 0 },
+  { id: 'agility', name: 'Agilité', color: '#22c55e', xp: 0 },
+  { id: 'wisdom', name: 'Sagesse', color: '#64748b', xp: 0 }
 ];
 
 const BADGE_DEFINITIONS = [
