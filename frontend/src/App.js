@@ -79,9 +79,11 @@ const AppContent = () => {
 function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
+      <RPGProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </RPGProvider>
     </ThemeProvider>
   );
 }
