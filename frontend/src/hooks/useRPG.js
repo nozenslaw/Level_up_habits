@@ -1,9 +1,8 @@
-import { useCallback, useMemo } from 'react';
-import { useLocalStorage } from './useLocalStorage';
+import { createContext, useContext, useCallback, useMemo, useState, useEffect } from 'react';
 
 const XP_BASE = 100;
 const XP_MULTIPLIER = 1.5;
-const STREAK_BONUS_MULTIPLIER = 0.1; // 10% bonus per streak day
+const STREAK_BONUS_MULTIPLIER = 0.1;
 
 export const calculateXPForLevel = (level) => {
   return Math.floor(XP_BASE * Math.pow(XP_MULTIPLIER, level - 1));
@@ -50,12 +49,66 @@ const BADGE_DEFINITIONS = [
   { level: 100, name: 'Immortel', icon: '🌌', description: 'Atteindre le niveau 100' }
 ];
 
-export const useRPG = () => {
-  const [totalXP, setTotalXP] = useLocalStorage('rpg_total_xp', 0);
-  const [stats, setStats] = useLocalStorage('rpg_stats', DEFAULT_STATS);
-  const [unlockedBadges, setUnlockedBadges] = useLocalStorage('rpg_badges', []);
-  const [habits, setHabits] = useLocalStorage('rpg_habits', []);
-  const [completionHistory, setCompletionHistory] = useLocalStorage('rpg_history', {});
+// Helper to read from localStorage
+const getFromStorage = (key, defaultValue) => {
+  try {
+    const item = window.localStorage.getItem(key);
+    return item ? JSON.parse(item) : defaultValue;
+  } catch (error) {
+    console.error(`Error reading localStorage key "${key}":`, error);
+    return defaultValue;
+  }
+};
+
+// Helper to write to localStorage
+const setToStorage = (key, value) => {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.error(`Error setting localStorage key "${key}":`, error);
+  }
+};
+
+const RPGContext = createContext();
+
+export const RPGProvider = ({ children }) => {
+  // State initialization from localStorage
+  const [totalXP, setTotalXPState] = useState(() => getFromStorage('rpg_total_xp', 0));
+  const [stats, setStatsState] = useState(() => getFromStorage('rpg_stats', DEFAULT_STATS));
+  const [unlockedBadges, setUnlockedBadgesState] = useState(() => getFromStorage('rpg_badges', []));
+  const [habits, setHabitsState] = useState(() => getFromStorage('rpg_habits', []));
+  const [completionHistory, setCompletionHistoryState] = useState(() => getFromStorage('rpg_history', {}));
+
+  // Sync state setters with localStorage
+  const setTotalXP = useCallback((value) => {
+    const newValue = value instanceof Function ? value(totalXP) : value;
+    setTotalXPState(newValue);
+    setToStorage('rpg_total_xp', newValue);
+  }, [totalXP]);
+
+  const setStats = useCallback((value) => {
+    const newValue = value instanceof Function ? value(stats) : value;
+    setStatsState(newValue);
+    setToStorage('rpg_stats', newValue);
+  }, [stats]);
+
+  const setUnlockedBadges = useCallback((value) => {
+    const newValue = value instanceof Function ? value(unlockedBadges) : value;
+    setUnlockedBadgesState(newValue);
+    setToStorage('rpg_badges', newValue);
+  }, [unlockedBadges]);
+
+  const setHabits = useCallback((value) => {
+    const newValue = value instanceof Function ? value(habits) : value;
+    setHabitsState(newValue);
+    setToStorage('rpg_habits', newValue);
+  }, [habits]);
+
+  const setCompletionHistory = useCallback((value) => {
+    const newValue = value instanceof Function ? value(completionHistory) : value;
+    setCompletionHistoryState(newValue);
+    setToStorage('rpg_history', newValue);
+  }, [completionHistory]);
 
   const levelData = useMemo(() => calculateLevelFromTotalXP(totalXP), [totalXP]);
 
@@ -191,7 +244,6 @@ export const useRPG = () => {
 
   const deleteStat = useCallback((statId) => {
     setStats(prev => prev.filter(s => s.id !== statId));
-    // Remove stat from all habits
     setHabits(prev => 
       prev.map(h => ({
         ...h,
@@ -211,24 +263,24 @@ export const useRPG = () => {
   }, [completionHistory]);
 
   const getWeeklyStats = useCallback(() => {
-    const stats = [];
+    const weekStats = [];
     for (let i = 6; i >= 0; i--) {
       const date = new Date();
       date.setDate(date.getDate() - i);
       const dateStr = date.toISOString().split('T')[0];
       const completions = completionHistory[dateStr] || [];
-      stats.push({
+      weekStats.push({
         date: dateStr,
         day: date.toLocaleDateString('fr-FR', { weekday: 'short' }),
         completions: completions.length,
         percentage: habits.length > 0 ? Math.round((completions.length / habits.length) * 100) : 0
       });
     }
-    return stats;
+    return weekStats;
   }, [completionHistory, habits.length]);
 
   const getMonthlyStats = useCallback(() => {
-    const stats = [];
+    const monthStats = [];
     const today = new Date();
     const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
     
@@ -236,14 +288,14 @@ export const useRPG = () => {
       const date = new Date(today.getFullYear(), today.getMonth(), i);
       const dateStr = date.toISOString().split('T')[0];
       const completions = completionHistory[dateStr] || [];
-      stats.push({
+      monthStats.push({
         date: dateStr,
         day: i,
         completions: completions.length,
         percentage: habits.length > 0 ? Math.round((completions.length / habits.length) * 100) : 0
       });
     }
-    return stats;
+    return monthStats;
   }, [completionHistory, habits.length]);
 
   const resetAllData = useCallback(() => {
@@ -254,7 +306,7 @@ export const useRPG = () => {
     setCompletionHistory({});
   }, [setTotalXP, setStats, setUnlockedBadges, setHabits, setCompletionHistory]);
 
-  return {
+  const value = {
     // Level & XP
     level: levelData.level,
     currentXP: levelData.currentXP,
@@ -290,6 +342,20 @@ export const useRPG = () => {
     // Utils
     resetAllData
   };
+
+  return (
+    <RPGContext.Provider value={value}>
+      {children}
+    </RPGContext.Provider>
+  );
 };
 
-export default useRPG;
+export const useRPG = () => {
+  const context = useContext(RPGContext);
+  if (!context) {
+    throw new Error('useRPG must be used within an RPGProvider');
+  }
+  return context;
+};
+
+export default RPGContext;
