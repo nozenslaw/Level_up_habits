@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
+import { RPGProvider } from "./hooks/useRPG";
 import { BottomNav } from "./components/BottomNav";
 import Dashboard from "./pages/Dashboard";
 import Habits from "./pages/Habits";
