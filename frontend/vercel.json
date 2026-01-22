@@ -1,27 +1,3 @@
 {
-  "version": 2,
-  "name": "levelup-habits",
-  "framework": "create-react-app",
-  "buildCommand": "yarn build",
-  "outputDirectory": "build",
-  "installCommand": "yarn install",
-  "routes": [
-    {
-      "src": "/service-worker.js",
-      "headers": { "Cache-Control": "no-cache" },
-      "dest": "/service-worker.js"
-    },
-    {
-      "src": "/manifest.json",
-      "dest": "/manifest.json"
-    },
-    {
-      "src": "/icons/(.*)",
-      "dest": "/icons/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ]
+  "framework": "create-react-app"
 }
