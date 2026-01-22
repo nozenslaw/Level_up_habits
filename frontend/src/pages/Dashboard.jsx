@@ -79,7 +79,7 @@ export default function Dashboard() {
           height={windowSize.height}
           recycle={false}
           numberOfPieces={200}
-          colors={['#00F0FF', '#BD00FF', '#39FF14', '#FF0055', '#FFAA00']}
+          colors={['#6366f1', '#a855f7', '#22c55e', '#ef4444', '#f59e0b']}
         />
       )}
 
