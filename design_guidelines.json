@@ -1,0 +1,187 @@
+{
+  "identity": {
+    "name": "LevelUp Habits",
+    "description": "A minimalist, gamified habit tracker with RPG elements.",
+    "tone": "Modern, Energetic, Clean, Gamified but Mature",
+    "target_audience": "Personal productivity enthusiasts, gamers, self-improvers"
+  },
+  "typography": {
+    "primary_font": "Manrope",
+    "heading_font": "Outfit",
+    "mono_font": "JetBrains Mono",
+    "scale": {
+      "h1": "text-4xl font-bold tracking-tight",
+      "h2": "text-3xl font-semibold tracking-tight",
+      "h3": "text-2xl font-semibold",
+      "body": "text-base leading-relaxed",
+      "small": "text-sm text-muted-foreground",
+      "stats": "font-mono text-lg tracking-wider"
+    },
+    "imports": [
+      "@fontsource/outfit/300.css",
+      "@fontsource/outfit/400.css",
+      "@fontsource/outfit/600.css",
+      "@fontsource/outfit/700.css",
+      "@fontsource/manrope/400.css",
+      "@fontsource/manrope/500.css",
+      "@fontsource/manrope/700.css",
+      "@fontsource/jetbrains-mono/400.css"
+    ]
+  },
+  "colors": {
+    "theme_strategy": "dual_mode_neon",
+    "palette": {
+      "primary": {
+        "DEFAULT": "#00F0FF",
+        "foreground": "#000000",
+        "description": "Neon Cyan - Main action color"
+      },
+      "secondary": {
+        "DEFAULT": "#BD00FF",
+        "foreground": "#FFFFFF",
+        "description": "Neon Purple - Secondary actions, magic/wisdom stats"
+      },
+      "accent": {
+        "DEFAULT": "#39FF14",
+        "foreground": "#000000",
+        "description": "Neon Green - Success, completion, agility stats"
+      },
+      "destructive": {
+        "DEFAULT": "#FF0055",
+        "foreground": "#FFFFFF",
+        "description": "Neon Red - Delete, strength stats"
+      },
+      "background": {
+        "light": "#FAFAFA",
+        "dark": "#050505"
+      },
+      "card": {
+        "light": "rgba(255, 255, 255, 0.8)",
+        "dark": "rgba(20, 20, 20, 0.6)"
+      },
+      "stats": {
+        "strength": "#FF0055",
+        "endurance": "#FFAA00",
+        "intelligence": "#00F0FF",
+        "charisma": "#BD00FF",
+        "agility": "#39FF14",
+        "wisdom": "#FFFFFF"
+      }
+    },
+    "gradients": {
+      "primary": "bg-gradient-to-r from-[#00F0FF] to-[#BD00FF]",
+      "glass": "backdrop-blur-xl bg-background/60 border border-white/10",
+      "glow": "shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+    }
+  },
+  "layout": {
+    "structure": "mobile_first_pwa",
+    "grid_system": "bento_grid",
+    "spacing": {
+      "container_padding": "p-4 md:p-6",
+      "section_gap": "gap-6",
+      "item_gap": "gap-3"
+    },
+    "navigation": {
+      "type": "bottom_tab_bar",
+      "style": "glassmorphism_floating"
+    }
+  },
+  "components": {
+    "buttons": {
+      "style": "pill_shape",
+      "default": "h-12 px-6 rounded-full font-semibold transition-all active:scale-95 hover:shadow-[0_0_15px_rgba(0,240,255,0.4)]",
+      "ghost": "hover:bg-accent/10 hover:text-accent"
+    },
+    "cards": {
+      "style": "glass_panel",
+      "classes": "rounded-2xl border border-border/50 bg-card/50 backdrop-blur-md shadow-sm"
+    },
+    "inputs": {
+      "style": "minimal_underlined_or_filled",
+      "classes": "h-12 rounded-xl bg-secondary/50 border-transparent focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all"
+    },
+    "habit_item": {
+      "description": "Swipeable card or simple tap-to-complete row. Left side: Icon + Name. Right side: Streak + Checkbox.",
+      "interaction": "Tap to complete (confetti/glow effect). Long press to edit."
+    },
+    "radar_chart": {
+      "library": "recharts",
+      "description": "Hexagonal radar chart showing 6 stats. Filled area with low opacity, bright stroke.",
+      "config": {
+        "strokeWidth": 2,
+        "fillOpacity": 0.4,
+        "dot": true
+      }
+    },
+    "xp_bar": {
+      "style": "glowing_progress",
+      "classes": "h-3 rounded-full bg-secondary/20 overflow-hidden",
+      "indicator": "h-full bg-gradient-to-r from-primary to-secondary shadow-[0_0_10px_rgba(0,240,255,0.5)]"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "Used heavily for cards, nav bars, and overlays to allow background wallpapers to shine through.",
+    "neon_glow": "Used on active states, primary buttons, and chart lines.",
+    "confetti": "Trigger on habit completion and level up.",
+    "backgrounds": "User customizable. Default to abstract dark neon."
+  },
+  "assets": {
+    "wallpapers": [
+      {
+        "name": "Neon Abstract",
+        "url": "https://images.pexels.com/photos/28408917/pexels-photo-28408917.jpeg",
+        "category": "Dark/Neon"
+      },
+      {
+        "name": "Cyber City",
+        "url": "https://images.pexels.com/photos/4512439/pexels-photo-4512439.jpeg",
+        "category": "Dark/Urban"
+      },
+      {
+        "name": "Misty Nature",
+        "url": "https://images.pexels.com/photos/1367192/pexels-photo-1367192.jpeg",
+        "category": "Nature/Calm"
+      },
+      {
+        "name": "Soft Pastel",
+        "url": "https://images.pexels.com/photos/7135058/pexels-photo-7135058.jpeg",
+        "category": "Light/Abstract"
+      }
+    ],
+    "icons": {
+      "library": "lucide-react",
+      "style": "stroke-width-2"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Implement a 'ThemeContext' that handles both 'dark/light' mode AND 'wallpaper' selection.",
+    "Use 'recharts' for the Radar Chart. Ensure it is responsive.",
+    "Data persistence MUST be 'localStorage'. Create a custom hook 'useLocalStorage' for habits and user stats.",
+    "The RPG logic (XP calculation, Level up) should be in a dedicated utility or hook.",
+    "Ensure the app is PWA ready (manifest, icons, service worker registration if possible, or at least responsive meta tags).",
+    "Do not use default Shadcn colors blindly. Override them with the Neon palette defined in 'colors'.",
+    "For the 'Habit List', use a virtualized list if there are many habits, but standard map is fine for < 50.",
+    "Add a 'Confetti' effect (use 'react-confetti' or similar) when a user levels up."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy",
+    "Use glass-morphism effects with backdrop filters (12-24px blur)",
+    "You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file. This disrupts the human natural reading flow of text",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories (especially sponsor logos) = main agent will use placeholder text which is FORBIDDEN",
+    "Prioritize using pre-existing components from src/components/ui when applicable",
+    "Create new components that match the style and conventions of existing components when needed",
+    "Examine existing components to understand the project's component patterns before creating new ones",
+    "Components MUST use named exports (export const ComponentName = ...)",
+    "Pages MUST use default exports (export default function PageName() {...})",
+    "Use 'sonner' for toasts. Sonner component are located in /app/src/components/ui/sonner.tsx"
+  ]
+}
