@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head><title>Icon Generator</title></head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+sizes.forEach(size => {
+  canvas.width = size;
+  canvas.height = size;
+  
+  // Background gradient
+  const gradient = ctx.createLinearGradient(0, 0, size, size);
+  gradient.addColorStop(0, '#6366f1');
+  gradient.addColorStop(1, '#8b5cf6');
+  
+  // Rounded rect background
+  const radius = size * 0.19;
+  ctx.beginPath();
+  ctx.roundRect(0, 0, size, size, radius);
+  ctx.fillStyle = gradient;
+  ctx.fill();
+  
+  // Arrow (level up)
+  const scale = size / 512;
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.beginPath();
+  ctx.moveTo(256*scale, 120*scale);
+  ctx.lineTo(336*scale, 220*scale);
+  ctx.lineTo(296*scale, 220*scale);
+  ctx.lineTo(296*scale, 340*scale);
+  ctx.lineTo(216*scale, 340*scale);
+  ctx.lineTo(216*scale, 220*scale);
+  ctx.lineTo(176*scale, 220*scale);
+  ctx.closePath();
+  ctx.fill();
+  
+  // XP bar background
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.beginPath();
+  ctx.roundRect(136*scale, 370*scale, 240*scale, 24*scale, 12*scale);
+  ctx.fill();
+  
+  // XP bar fill
+  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+  ctx.beginPath();
+  ctx.roundRect(136*scale, 370*scale, 160*scale, 24*scale, 12*scale);
+  ctx.fill();
+  
+  // Star
+  ctx.fillStyle = '#fbbf24';
+  ctx.beginPath();
+  ctx.arc(380*scale, 140*scale, 20*scale, 0, Math.PI * 2);
+  ctx.fill();
+  
+  console.log(\`icon-\${size}.png: \${canvas.toDataURL('image/png').substring(0, 50)}...\`);
+});
+</script>
+</body>
+</html>
