@@ -46,10 +46,10 @@ export default function History() {
   };
 
   const getBarColor = (percentage) => {
-    if (percentage >= 80) return '#39FF14';
-    if (percentage >= 50) return '#00F0FF';
-    if (percentage >= 25) return '#FFAA00';
-    return '#FF0055';
+    if (percentage >= 80) return '#22c55e';
+    if (percentage >= 50) return '#6366f1';
+    if (percentage >= 25) return '#f59e0b';
+    return '#ef4444';
   };
 
   return (
@@ -167,13 +167,13 @@ export default function History() {
             }}
             modifiersStyles={{
               completed: {
-                backgroundColor: 'rgba(57, 255, 20, 0.3)',
-                color: '#39FF14',
+                backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                color: '#22c55e',
                 fontWeight: 'bold'
               },
               partial: {
-                backgroundColor: 'rgba(0, 240, 255, 0.2)',
-                color: '#00F0FF'
+                backgroundColor: 'rgba(99, 102, 241, 0.15)',
+                color: '#6366f1'
               }
             }}
             data-testid="history-calendar"
